@@ -31,6 +31,9 @@ class Jssp(object):
         self.machines = machines
 
     def jssp_solve(self,x):
+        #获取work_machine工作队列
+        #k表示machie_k
+        # (i,j,time)表示job i 的第  j  道 工序 及其时间
         work_machine = []
         for i in range(self.m):
             work_machine.append([])
@@ -38,6 +41,19 @@ class Jssp(object):
             for j in range(self.m):
                 k = int(self.machines[i][j])
                 work_machine[k-1].append([i,j,self.times[i][j]])
+        
+        #对x矩阵进行转置
+        # x(i,j)=y,表示machinei的第y道工序在jobj上 
+        x = np.array(x)
+        x = x.T
+        x = x.tolist()
+
+
+        # 将work_machine工作队列按照xT矩阵排序
+        for i in range(m):
+            for j in range(n):
+                
+        
 
 
         makespan=0
