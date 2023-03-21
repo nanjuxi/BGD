@@ -90,20 +90,20 @@ class Jssp(object):
             # 从S中删除S1，同时H【i】++，将S中剩余工序时间减掉ts1,makespan+=ts1
             makespan = makespan + ts1
             for x in S:
-                if x == S1:
+                if x[2] == S1[2]:
                     i = x[0]
                     H[i] = H[i]+1
                 else:
                     x[2] = x[2] - ts1 # 更新S中剩余时间
-            S = [i for i in S if i != S1]   
+            S = [i for i in S if i[2] != S1[2]]   
 
             # 从machines矩阵找出可执行的工序，加入集合S
-            S2,flag3 = self.find_set(work_machine,H,S,machines) # flag3表示work_machine是否为空，True为空，False表示卡死
+            S2,flag3 = self.find_set(work_machine,H,S,self.machines) # flag3表示work_machine是否为空，True为空，False表示卡死
             for x in S2:
                 S.append(x)
-            if flag3 == True:
+            if S==[] and flag3 == True :
                 break
-            elif S2 == []:
+            elif S==[] and S2 == []:
                 print("此时卡死，无最优解")
                 makespan = inf
                 break
