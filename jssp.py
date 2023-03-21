@@ -1,6 +1,7 @@
 #
 import linecache
 import numpy as np
+inf = 9999999
 
 class Jssp(object):
     def __init__(self, path):
@@ -92,27 +93,82 @@ class Jssp(object):
                 if x == S1:
                     i = x[0]
                     H[i] = H[i]+1
-                    del x
                 else:
-                    x[2] = x[2] - ts1
-            
-            
+                    x[2] = x[2] - ts1 # 更新S中剩余时间
+            S = [i for i in S if i != S1]   
 
+            # 从machines矩阵找出可执行的工序，加入集合S
+            S2,flag3 = self.find_set(work_machine,H,S,machines) # flag3表示work_machine是否为空，True为空，False表示卡死
+            for x in S2:
+                S.append(x)
+            if flag3 == True:
+                break
+            elif S2 == []:
+                print("此时卡死，无最优解")
+                makespan = inf
+                break
         return makespan
 
-    def find_set(self,work_machine,H,S): #找出可执行的序列
+
+
+    def find_set(self,work_machine,H,S,machines): #找出可执行的序列
+        flag = 0 # 用flag表示work_machines是否无加工序列了，0表示没有，1表示还有需要加工的序列
+
         for i in range(0,self.m):
+            if(work_machine[i] != []):
+                flag = 1
+                break
+       
+        if flag == 0:
+            print("已经没有要加工的工序了")
+            return [],True
+
+        
+        S2 = [] #用来表示要被加入的工序的集合
+        for i in range(0,self.m):
+            if work_machine[i] == []:
+                continue
+            operation0 = work_machine[i][0]
+            # 判断operation0工序能否被执行
+            # 1  该工序加工的机器处于空闲状态
+            machine0 = i+1
+            flag1 = 0 # 用来表示机器是否空闲，0表示空闲，1表示非空闲
+            for x in S:
+                if machines[x[0]][x[1]] == machine0:
+                    flag1 = 1
+                    print("此时机器%d正在执行",machine0)
+                    break   
+            if flag1 == 1:
+                continue
+            # 机器空闲，进一步判断是否满足先序工序
+            if (H[operation0[0]]+1) == operation0[1]: # 表示满足先序条件
+                S2.append(operation0)   
+                del work_machine[i][0]    
+        return S2,False
+        
+        
+     
+        
+                  
+               
+               
+                
+            
 
 
 
 
 
 if __name__=="__main__":
-    # j = Jssp("./test.txt")
-    j = Jssp("./Tailard15_15.txt")
+    j = Jssp("./test.txt")
+    # j = Jssp("./Tailard15_15.txt")
     # makespan = j.jssp_solve([[1,2,3],[1,2,3],[1,2,3]])
     # print(makespan)
+    x = [[1,2,3],[2,1,1],[3,3,2]]
+    # [1,2,3]  [2,1,3]  [3,1,2]
+    #
     i = j.jssp_solve(x)
+    print(i)
    
 
 # machine1的工作队列[
