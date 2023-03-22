@@ -104,7 +104,7 @@ class Jssp(object):
             if S==[] and flag3 == True :
                 break
             elif S==[] and S2 == []:
-                print("此时卡死，无最优解")
+                # print("此时卡死，无最优解")
                 makespan = inf
                 break
         return makespan
@@ -119,7 +119,7 @@ class Jssp(object):
                 flag = 1
                 break
         if flag == 0:
-            print("已经没有要加工的工序了")
+            # print("已经没有要加工的工序了")
             return [],True
 
         
@@ -135,7 +135,7 @@ class Jssp(object):
             for x in S:
                 if machines[x[0]][x[1]] == machine0:
                     flag1 = 1
-                    print(f"此时机器{machine0}正在执行")
+                    # print(f"此时机器{machine0}正在执行")
                     break   
             if flag1 == 1:
                 continue
