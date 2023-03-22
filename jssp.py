@@ -43,11 +43,11 @@ class Jssp(object):
                 k = int(self.machines[i][j])
                 work_machine[k-1].append([i,j,self.times[i][j]])
         
-        #对x矩阵进行转置
+        # #对x矩阵进行转置
         
-        x = np.array(x)
-        x = x.T
-        x = x.tolist()
+        # x = np.array(x)
+        # x = x.T
+        # x = x.tolist()
 
 
         # 将work_machine工作队列按照xT矩阵排序
@@ -118,7 +118,6 @@ class Jssp(object):
             if(work_machine[i] != []):
                 flag = 1
                 break
-       
         if flag == 0:
             print("已经没有要加工的工序了")
             return [],True
@@ -146,28 +145,15 @@ class Jssp(object):
                 del work_machine[i][0]    
         return S2,False
         
-        
-     
-        
-                  
-               
-               
-                
-            
-
-
-
-
 
 if __name__=="__main__":
     j = Jssp("./test.txt")
     # j = Jssp("./Tailard15_15.txt")
     # makespan = j.jssp_solve([[1,2,3],[1,2,3],[1,2,3]])
     # print(makespan)
-    x = [[1,2,3],[2,1,1],[3,3,2]]
-    # [1,2,3]  [2,1,3]  [3,1,2]
-    #
-    i = j.jssp_solve(x)
+    x1 = [[1,2,3],[3,1,2],[1,2,3]]
+    x2 = [[1,2,3],[2,1,3],[3,1,2]]
+    i = j.jssp_solve(x2)
     print(i)
    
 
