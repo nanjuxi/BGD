@@ -51,7 +51,7 @@ class ExhausivelSolve(object):
             
             if p == [0 for i in range(0,jp.m)]:
                 break
-            if count % 1 == 0:
+            if count % 100 == 0:
                 print(f"穷举进度: {count}/{count_sum}",end='\r')
         
         # print(f"总共有{count}个x矩阵")
