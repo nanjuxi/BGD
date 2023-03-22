@@ -136,7 +136,7 @@ class Jssp(object):
             for x in S:
                 if machines[x[0]][x[1]] == machine0:
                     flag1 = 1
-                    print("此时机器%d正在执行",machine0)
+                    print(f"此时机器{machine0}正在执行")
                     break   
             if flag1 == 1:
                 continue
