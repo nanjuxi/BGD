@@ -1,14 +1,21 @@
 from jssp import Jssp 
 import itertools
-
+import sys,time
 def DiGui(n):
     if n==1:
         return 1
     return n*DiGui(n-1)
 
+#定义一个进度条
+def process_bar(num, total):
+    rate = float(num)/total
+    ratenum = int(100*rate)
+    r = '\r[{}{}]{}%'.format('*'*ratenum,' '*(100-ratenum), ratenum)
+    sys.stdout.write(r)
+    sys.stdout.flush()
 class ExhausivelSolve(object):
     def __init__(self,jp:Jssp):
-        self.p_iter = []
+        self.p_iter = []  #  全排列生成器列表 p_iter[i]表示机器i对应的生成器
         self.x = []
         self.jp = jp
         for i in range(0,jp.m):
@@ -53,14 +60,8 @@ class ExhausivelSolve(object):
                 break
             if count % 100 == 0:
                 print(f"穷举进度: {count}/{count_sum}",end='\r')
-        
-        # print(f"总共有{count}个x矩阵")
-        # print(x_fal,t_min)
+                # process_bar(count,count_sum)
         return x_fal,t_min
-
-        x_all = itertools.permutations([i for i in range(1,jssp.n + 1)])
-       
-        return x,t
 
 
 if __name__ == "__main__":
