@@ -151,7 +151,9 @@ if __name__=="__main__":
     # j = Jssp("./Tailard15_15.txt")
     # makespan = j.jssp_solve([[1,2,3],[1,2,3],[1,2,3]])
     # print(makespan)
-    x1 = [[1,2,3],[3,1,2],[1,2,3]]
+    x1 = [[1,2,3],
+          [3,1,2],
+          [1,2,3]]
     x2 = [[1,2,3],[2,1,3],[3,1,2]]
     i = j.jssp_solve(x2)
     print(i)
